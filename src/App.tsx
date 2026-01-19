@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import main from './assets/bg-main.svg'
 import cloudFloating from './assets/cloud-floating.svg'
 import peachBlossom from './assets/peach-blossom.svg'
+import CherryBlossomEffect from './components/CherryBlossomEffect'
 
 type Petal = {
   id: number
@@ -116,6 +117,8 @@ function App() {
           )
         })}
       </div>
+
+      <CherryBlossomEffect />
 
       <div className="content-layer">
         <div className="app-shell">

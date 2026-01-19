@@ -26,16 +26,13 @@ export default function Topics() {
   return (
     <div className="page">
       <div className="topbar">
-        <Link className="btn btn--ghost" to="/">
-          Back
+        <Link className="btn btn--ghost" to="/" aria-label="Back">
+          ←
         </Link>
-        <div className="topbar__title">Topics</div>
-        <div className="topbar__spacer" />
       </div>
 
       <div className="topics-layout">
         <div className="panel">
-          <div className="panel__title">Pick a topic</div>
           <div className="topic-list" role="list">
             {topics.map((t) => {
               const active = selected?.topic.id === t.id
@@ -55,11 +52,8 @@ export default function Topics() {
         </div>
 
         <div className="panel panel--question">
-          <div className="panel__title">Question</div>
-
           {selected ? (
             <div className="question-card">
-              <div className="question-card__topic">{selected.topic.label}</div>
               <div className="question-card__text">{selected.question}</div>
               <div className="question-card__actions">
                 <button type="button" className="btn btn--primary" onClick={nextQuestion}>
@@ -69,7 +63,6 @@ export default function Topics() {
             </div>
           ) : (
             <div className="question-empty">
-              <div className="question-empty__title">Select a topic to begin</div>
               <div className="question-empty__text">
                 Choose one on the left to get a random question.
               </div>
@@ -80,4 +73,3 @@ export default function Topics() {
     </div>
   )
 }
-

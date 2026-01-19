@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="petalFill" x1="14" y1="10" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe2ee" />
+      <stop offset="0.45" stop-color="#ffb7d1" />
+      <stop offset="1" stop-color="#ff7fb3" />
+    </linearGradient>
+    <radialGradient id="petalGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(22 18) rotate(65) scale(34 34)">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.85" />
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <path
+    d="M33.2 9.6c-6.9 0-13.4 6.8-16.3 13.8-2.7 6.6-2.6 13.2.5 17.6 3.4 4.9 9.6 9.4 16.1 9.4 6.6 0 12.7-4.5 16.1-9.4 3-4.4 3.2-11-.5-17.6C46.3 16.4 40.1 9.6 33.2 9.6Z"
+    fill="url(#petalFill)"
+  />
+  <path
+    d="M33.2 9.6c-6.9 0-13.4 6.8-16.3 13.8-2.7 6.6-2.6 13.2.5 17.6 3.4 4.9 9.6 9.4 16.1 9.4 6.6 0 12.7-4.5 16.1-9.4 3-4.4 3.2-11-.5-17.6C46.3 16.4 40.1 9.6 33.2 9.6Z"
+    fill="url(#petalGlow)"
+  />
+  <path
+    d="M32.6 14.2c-4.8 0-9.5 5.1-11.9 10.9-2 4.8-2 9.7.2 12.8 2.6 3.7 7.3 7 11.7 7 4.4 0 9.1-3.3 11.7-7 2.2-3.1 2.2-8-.2-12.8-2.4-5.8-7.1-10.9-11.5-10.9Z"
+    fill="#ff5c9c"
+    opacity="0.16"
+  />
+  <path
+    d="M20.5 24.8c2.4-6 7.6-10.9 12.1-10.9"
+    stroke="#ffffff"
+    stroke-opacity="0.55"
+    stroke-width="2.2"
+    stroke-linecap="round"
+  />
+</svg>

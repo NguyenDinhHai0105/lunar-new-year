@@ -3,11 +3,13 @@ import { useEffect, useRef } from 'react'
 type Props = {
   open: boolean
   title: string
+  ariaLabel?: string
+  showTitle?: boolean
   onClose: () => void
   children: React.ReactNode
 }
 
-export default function Modal({ open, title, onClose, children }: Props) {
+export default function Modal({ open, title, ariaLabel, showTitle = true, onClose, children }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
@@ -29,13 +31,19 @@ export default function Modal({ open, title, onClose, children }: Props) {
   if (!open) return null
 
   return (
-    <div className="modal" role="dialog" aria-modal="true" aria-label={title}>
+    <div className="modal" role="dialog" aria-modal="true" aria-label={ariaLabel ?? title}>
       <button type="button" className="modal__backdrop" onClick={onClose} aria-label="Close" />
       <div className="modal__panel">
         <div className="modal__header">
-          <div className="modal__title">{title}</div>
-          <button ref={closeRef} type="button" className="btn btn--ghost" onClick={onClose}>
-            Close
+          {showTitle ? <div className="modal__title">{title}</div> : <div />}
+          <button
+            ref={closeRef}
+            type="button"
+            className="btn btn--ghost"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ×
           </button>
         </div>
         <div className="modal__content">{children}</div>
@@ -43,4 +51,3 @@ export default function Modal({ open, title, onClose, children }: Props) {
     </div>
   )
 }
-
