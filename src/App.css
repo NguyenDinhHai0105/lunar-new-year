@@ -641,3 +641,182 @@
     animation: none !important;
   }
 }
+
+/* Lucky Spin Wheel Styles */
+.wheel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.wheel-container {
+  position: relative;
+  width: 480px;
+  height: 480px;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.wheel-image {
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.wheel-close {
+  position: absolute;
+  top: -60px;
+  right: -20px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.wheel-close:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.wheel-hint {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.winner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.winner-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 56px);
+  width: min(1200px, 100%);
+  padding: 0 clamp(12px, 4vw, 32px);
+  box-sizing: border-box;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.winner-image {
+  width: min(90vw, 420px);
+  height: min(90vw, 420px);
+  object-fit: contain;
+  animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) both infinite;
+}
+
+@media (max-width: 720px) {
+  .winner-layout {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-1deg); }
+  20%, 80% { transform: translate3d(2px, 0, 0) rotate(2deg); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0) rotate(-4deg); }
+  40%, 60% { transform: translate3d(4px, 0, 0) rotate(4deg); }
+}
+
+.winner-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #dc2626;
+    margin: 0;
+}
+
+.wheel-item-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 270px;
+  height: 270px;
+  pointer-events: none;
+  /* Transform is handled inline for positioning */
+}
+
+/* Override .wheel-image to remove conflicting positioning styles */
+.wheel-image {
+  /* Reset positioning since container handles it */
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  width: 100%;
+  height: 100%;
+}
+
+.wheel-pointer {
+  display: none;
+}
+
+/* Music Player */
+.music-player {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 40;
+}
+
+.music-toggle {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-toggle:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.9);
+}

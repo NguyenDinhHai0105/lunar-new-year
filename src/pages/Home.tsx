@@ -1,27 +1,49 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Confetti from 'react-confetti'
 import ActionCard from '../components/ActionCard'
-import Modal from '../components/Modal'
+import LuckySpinWheel from '../components/LuckySpinWheel'
 import luckyEnvelope from '../assets/s2.webp'
 import party from '../assets/party.svg'
-import { randomFromArray } from '../utils/random'
 
-function formatVND(amount: number) {
-  const formatted = new Intl.NumberFormat('vi-VN').format(amount)
-  return `${formatted}₫`
+const wishes = [
+  'An Khang Thịnh Vượng',
+  'Vạn Sự Như Ý',
+  'Phúc Lộc An Khang',
+  'Tấn Tài Tấn Lộc',
+  'Gia Đình Hạnh Phúc',
+  'Cát Tường Như Ý',
+  'Xuân Hưng Thịnh Vượng',
+  'Phát Tài Phát Lộc',
+  'Phúc Lộc Vẹn Toàn',
+  'Xuân Sang Phú Quý',
+  'Lộc Đầy Túi Tiền',
+  'Gia Đạo Bình An',
+  'Khai Xuân Đại Cát',
+]
+
+function pickTwoWishes() {
+  const leftIndex = Math.floor(Math.random() * wishes.length)
+  let rightIndex = Math.floor(Math.random() * wishes.length)
+
+  if (wishes.length > 1) {
+    while (rightIndex === leftIndex) {
+      rightIndex = Math.floor(Math.random() * wishes.length)
+    }
+  }
+
+  return {
+    left: wishes[leftIndex],
+    right: wishes[rightIndex],
+  }
 }
+
 
 export default function Home() {
   const navigate = useNavigate()
-  const amounts = useMemo(() => [10000, 20000, 50000, 100000, 200000, 500000], [])
-  const [open, setOpen] = useState(false)
-  const [amount, setAmount] = useState<number | null>(null)
-
-  const reveal = () => {
-    const next = randomFromArray(amounts, amount ?? undefined)
-    setAmount(next)
-    setOpen(true)
-  }
+  const [showWheel, setShowWheel] = useState(false)
+  const [winner, setWinner] = useState<string | null>(null)
+  const [winnerWishes, setWinnerWishes] = useState<{ left: string; right: string } | null>(null)
 
   return (
     <div className="page page--home">
@@ -31,7 +53,7 @@ export default function Home() {
             title="Đón lộc đầu xuân"
             imageSrc={luckyEnvelope}
             imageAlt="Lucky money"
-            onClick={reveal}
+            onClick={() => setShowWheel(true)}
             hideBody
           />
         </div>
@@ -47,20 +69,31 @@ export default function Home() {
         </div>
       </div>
 
-      <Modal open={open} title="" ariaLabel="Lucky money" showTitle={false} onClose={() => setOpen(false)}>
-        <div className="reveal">
-          <div className="reveal__amount">{amount === null ? '—' : formatVND(amount)}</div>
-          <div className="reveal__note">Wishing you a year full of joy and good fortune.</div>
-          <div className="reveal__actions">
-            <button type="button" className="btn btn--primary" onClick={reveal}>
-              Reveal again
-            </button>
-            <button type="button" className="btn btn--ghost" onClick={() => setOpen(false)}>
-              Done
-            </button>
+      {showWheel && (
+        <LuckySpinWheel
+          onSpinEnd={(img) => {
+            setShowWheel(false)
+            setWinner(img)
+            setWinnerWishes(pickTwoWishes())
+          }}
+          onClose={() => setShowWheel(false)}
+        />
+      )}
+
+      {winner && winnerWishes && (
+        <div
+          className="winner-overlay"
+          onClick={() => {
+            setWinner(null)
+            setWinnerWishes(null)
+          }}
+        >
+          <Confetti numberOfPieces={400} recycle={false} gravity={0.2} />
+          <div className="winner-layout">
+            <img src={winner} className="winner-image" alt="Winner" />
           </div>
         </div>
-      </Modal>
+      )}
     </div>
   )
 }
