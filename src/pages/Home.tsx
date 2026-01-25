@@ -5,6 +5,7 @@ import ActionCard from '../components/ActionCard'
 import LuckySpinWheel from '../components/LuckySpinWheel'
 import luckyEnvelope from '../assets/s2.webp'
 import party from '../assets/party.svg'
+import wishBoard from '../assets/wish-board.svg'
 
 const wishes = [
   'An Khang Thịnh Vượng',
@@ -36,6 +37,21 @@ function pickTwoWishes() {
     left: wishes[leftIndex],
     right: wishes[rightIndex],
   }
+}
+
+function renderVerticalWish(text: string) {
+  return (
+    <div className="winner-wish-content">
+      {text
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((word, index) => (
+          <div key={`${word}-${index}`} className="winner-wish-line">
+            {word}
+          </div>
+        ))}
+    </div>
+  )
 }
 
 
@@ -90,7 +106,21 @@ export default function Home() {
         >
           <Confetti numberOfPieces={400} recycle={false} gravity={0.2} />
           <div className="winner-layout">
+            <div className="winner-wish winner-wish--left" style={{ backgroundImage: `url(${wishBoard})` }}>
+              <div className="winner-wish-content"></div>
+              <div className="winner-wish-content"></div>
+              {renderVerticalWish(winnerWishes.left)}
+              <div className="winner-wish-content"></div>
+              <div className="winner-wish-content"></div>
+            </div>
             <img src={winner} className="winner-image" alt="Winner" />
+            <div className="winner-wish winner-wish--right" style={{ backgroundImage: `url(${wishBoard})` }}>
+              <div className="winner-wish-content"></div>
+              <div className="winner-wish-content"></div>
+              {renderVerticalWish(winnerWishes.right)}
+              <div className="winner-wish-content"></div>
+              <div className="winner-wish-content"></div>
+            </div>
           </div>
         </div>
       )}

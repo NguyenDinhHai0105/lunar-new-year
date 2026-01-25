@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');
+
 .main-bg {
   position: fixed;
   inset: 0;
@@ -734,9 +736,79 @@
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.winner-wish {
+  font-family: 'Protest Revolution', system-ui;
+  position: relative;
+  width: clamp(240px, 24vw, 360px);
+  aspect-ratio: 1024.5 / 576;
+  height: auto;
+  user-select: none;
+  display: grid;
+  place-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 200% auto;
+  transform-origin: 50% 60%;
+  animation: wish-board-shake 3.2s ease-in-out infinite;
+}
+
+.winner-wish-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.2vh, 14px);
+  padding: clamp(14px, 2.2vw, 26px);
+  box-sizing: border-box;
+  animation: wish-content-shake 2.6s ease-in-out infinite;
+}
+
+.winner-wish-line {
+  display: block;
+  white-space: nowrap;
+  color: #980c05;
+  text-shadow: none;
+  font-size: clamp(16px, 2.1vw, 30px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.winner-wish--left {
+  text-align: center;
+}
+
+.winner-wish--right {
+  text-align: center;
+}
+
 @keyframes popIn {
     from { opacity: 0; transform: scale(0.8); }
     to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes wish-board-shake {
+  0% { transform: translate3d(0, 0, 0) rotate(-0.7deg); }
+  25% { transform: translate3d(0.6px, -0.4px, 0) rotate(0.8deg); }
+  50% { transform: translate3d(-0.8px, 0.6px, 0) rotate(-0.5deg); }
+  75% { transform: translate3d(0.4px, 0.8px, 0) rotate(0.6deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(-0.7deg); }
+}
+
+@keyframes wish-content-shake {
+  0% { transform: translate3d(0, 0, 0); }
+  20% { transform: translate3d(-0.6px, 0.4px, 0); }
+  45% { transform: translate3d(0.5px, -0.5px, 0); }
+  70% { transform: translate3d(-0.3px, -0.2px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .winner-wish,
+  .winner-wish-content {
+    animation: none;
+  }
 }
 
 .winner-image {
@@ -750,6 +822,11 @@
   .winner-layout {
     flex-direction: column;
     gap: 18px;
+  }
+
+  .winner-wish {
+    width: min(92vw, 520px);
+    height: auto;
   }
 }
 

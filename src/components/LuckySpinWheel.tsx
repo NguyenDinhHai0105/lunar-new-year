@@ -51,9 +51,6 @@ export default function LuckySpinWheel({ onSpinEnd, onClose }: Props) {
     // Index 2: 180-270 (Center 225)
     // Index 3: 270-360 (Center 315)
     
-    const segmentAngle = 360 / items.length
-    const itemCenterAngle = selectedIndex * segmentAngle + segmentAngle / 2
-    
     // Target rotation: Random spin
     const extraSpins = 5 + Math.floor(Math.random() * 3)
     // Add a random offset between 0 and 360 to stop anywhere
