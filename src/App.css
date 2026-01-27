@@ -736,6 +736,46 @@
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.uncle-hai-banner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(6px, 1.2vw, 14px);
+  width: min(1200px, 100%);
+  padding: 0 clamp(12px, 4vw, 32px);
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.uncle-hai-banner__item {
+  display: block;
+  --uncle-hai-delay: 0ms;
+  animation: uncle-hai-slide-down 420ms cubic-bezier(0.2, 0.9, 0.2, 1) both var(--uncle-hai-delay);
+}
+
+.uncle-hai-banner__item--1 { --uncle-hai-delay: 0ms; }
+.uncle-hai-banner__item--2 { --uncle-hai-delay: 120ms; }
+.uncle-hai-banner__item--3 { --uncle-hai-delay: 240ms; }
+.uncle-hai-banner__item--4 { --uncle-hai-delay: 360ms; }
+.uncle-hai-banner__item--5 { --uncle-hai-delay: 480ms; }
+.uncle-hai-banner__item--6 { --uncle-hai-delay: 600ms; }
+
+.uncle-hai-banner__img {
+  height: clamp(66px, 9vw, 138px);
+  width: auto;
+  display: block;
+  transform-origin: 50% 70%;
+  --uncle-hai-shake: 2.6s;
+  animation: uncle-hai-shake var(--uncle-hai-shake) ease-in-out infinite;
+}
+
+.uncle-hai-banner__img--1 { --uncle-hai-shake: 2.3s; }
+.uncle-hai-banner__img--2 { --uncle-hai-shake: 2.9s; }
+.uncle-hai-banner__img--3 { --uncle-hai-shake: 2.5s; }
+.uncle-hai-banner__img--4 { --uncle-hai-shake: 3.1s; }
+.uncle-hai-banner__img--5 { --uncle-hai-shake: 2.7s; }
+.uncle-hai-banner__img--6 { --uncle-hai-shake: 3.4s; }
+
 .winner-wish {
   font-family: 'Protest Revolution', system-ui;
   position: relative;
@@ -788,6 +828,25 @@
     to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes uncle-hai-slide-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes uncle-hai-shake {
+  0% { transform: translate3d(0, 0, 0) rotate(-1.2deg); }
+  25% { transform: translate3d(1.2px, -0.9px, 0) rotate(1.4deg); }
+  50% { transform: translate3d(-1.4px, 1.1px, 0) rotate(-1deg); }
+  75% { transform: translate3d(0.9px, 1.3px, 0) rotate(1.1deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(-1.2deg); }
+}
+
 @keyframes wish-board-shake {
   0% { transform: translate3d(0, 0, 0) rotate(-0.7deg); }
   25% { transform: translate3d(0.6px, -0.4px, 0) rotate(0.8deg); }
@@ -805,6 +864,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .uncle-hai-banner__item,
+  .uncle-hai-banner__img,
   .winner-wish,
   .winner-wish-content {
     animation: none;

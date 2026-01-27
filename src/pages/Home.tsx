@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Confetti from 'react-confetti'
 import ActionCard from '../components/ActionCard'
 import LuckySpinWheel from '../components/LuckySpinWheel'
+import UncleHaiBanner from '../components/UncleHaiBanner'
 import luckyEnvelope from '../assets/s2.webp'
 import party from '../assets/party.svg'
 import wishBoard from '../assets/wish-board.svg'
@@ -105,6 +106,8 @@ export default function Home() {
           }}
         >
           <Confetti numberOfPieces={400} recycle={false} gravity={0.2} />
+          
+          <UncleHaiBanner />
           <div className="winner-layout">
             <div className="winner-wish winner-wish--left" style={{ backgroundImage: `url(${wishBoard})` }}>
               <div className="winner-wish-content"></div>
