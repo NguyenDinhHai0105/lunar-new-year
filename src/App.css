@@ -498,6 +498,7 @@
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  overflow: visible !important; /* Prevent clipping of animated elements */
 }
 
 .question-modal-panel .modal__header {
@@ -520,7 +521,7 @@
   width: 100%;
   aspect-ratio: 1198 / 697;
   background: transparent;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to prevent scaling/shaking elements from being cut */
 }
 
 .question-modal__item {
@@ -618,11 +619,43 @@
 
 .question-modal__timer {
   position: absolute;
-  left: 11.2%;
+  left: 20.5%;
   top: 83.6%;
   width: 8.7%;
   animation: modal-pulse 2.5s infinite ease-in-out;
-  will-change: transform;
+  will-change: transform, left;
+  z-index: 20;
+}
+
+.timer--notifying {
+  animation: timer-notify-shake 0.4s infinite !important;
+  transform: scale(1.5);
+  z-index: 30;
+}
+
+.timer--counting {
+  animation: 
+    timer-move-across 10s linear forwards,
+    timer-active-shake 0.3s infinite !important;
+}
+
+@keyframes timer-notify-shake {
+  0% { transform: scale(1.5) translate(0, 0) rotate(0); }
+  25% { transform: scale(1.5) translate(3px, -3px) rotate(4deg); }
+  50% { transform: scale(1.5) translate(-3px, 3px) rotate(-4deg); }
+  75% { transform: scale(1.5) translate(3px, 3px) rotate(4deg); }
+  100% { transform: scale(1.5) translate(0, 0) rotate(0); }
+}
+
+@keyframes timer-active-shake {
+  0% { transform: translate(0, 0) rotate(-2deg); }
+  50% { transform: translate(1px, -1px) rotate(2deg); }
+  100% { transform: translate(0, 0) rotate(-2deg); }
+}
+
+@keyframes timer-move-across {
+  from { left: 20.5%; }
+  to { left: 80%; }
 }
 
 @keyframes modal-float {

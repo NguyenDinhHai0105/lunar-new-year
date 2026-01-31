@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import childhood from '../assets/question/childhood.png';
 import friendship from '../assets/question/friendship.png';
 import horseTimer from '../assets/question/horse_timer.png';
@@ -18,6 +18,14 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
   }, []);
 
   const [selected, setSelected] = useState<{ topicId: string; question: string } | null>(null);
+  const [timerState, setTimerState] = useState<'idle' | 'notifying' | 'counting'>('idle');
+  const timerRef = useRef<any>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const pickTopic = (topicId: string) => {
     const topic = topicLookup.get(topicId);
@@ -25,7 +33,24 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
 
     const nextQuestion = randomFromArray(topic.questions, selected?.topicId === topicId ? selected.question : undefined);
     if (!nextQuestion) return;
+
     setSelected({ topicId, question: nextQuestion });
+    
+    // Reset timer if already running
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setTimerState('idle');
+
+    // Start timer sequence: Notify for 1s, then start 10s move
+    setTimeout(() => {
+      setTimerState('notifying');
+      timerRef.current = setTimeout(() => {
+        setTimerState('counting');
+        // Reset to idle after 10s of counting
+        timerRef.current = setTimeout(() => {
+          setTimerState('idle');
+        }, 10000);
+      }, 1000);
+    }, 50);
   };
 
   return (
@@ -75,7 +100,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
                 </div>
               </div>
             </div>
-            <div className="question-modal__timer">
+            <div className={`question-modal__timer timer--${timerState}`}>
               <img src={horseTimer} alt="Timer" className="question-modal__img-timer" />
             </div>
           </div>
