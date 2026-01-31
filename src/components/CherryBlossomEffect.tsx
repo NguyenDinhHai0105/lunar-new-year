@@ -53,9 +53,9 @@ export default function CherryBlossomEffect({ enabled = true }: Props) {
     return () => media.removeListener(update)
   }, [])
 
-  if (!enabled || prefersReducedMotion) return null
-
   const petals = useMemo<Petal[]>(() => {
+    if (!enabled || prefersReducedMotion) return []
+
     const rand = mulberry32(20260119)
     const count = 42
 
@@ -96,7 +96,9 @@ export default function CherryBlossomEffect({ enabled = true }: Props) {
         flip,
       }
     })
-  }, [])
+  }, [enabled, prefersReducedMotion])
+
+  if (!enabled || prefersReducedMotion) return null
 
   return (
     <div className="petal-layer petal-layer--cherry" aria-hidden="true">

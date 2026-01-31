@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Confetti from 'react-confetti'
 import ActionCard from '../components/ActionCard'
 import LuckySpinWheel from '../components/LuckySpinWheel'
 import UncleHaiBanner from '../components/UncleHaiBanner'
-import luckyEnvelope from '../assets/s2.webp'
-import party from '../assets/party.svg'
+import QuestionModal from '../components/QuestionModal'
+import luckyEnvelope from '../assets/s2.svg'
+import party from '../assets/reunion.png'
 import wishBoard from '../assets/wish-board.svg'
 
 const wishes = [
@@ -57,8 +57,8 @@ function renderVerticalWish(text: string) {
 
 
 export default function Home() {
-  const navigate = useNavigate()
   const [showWheel, setShowWheel] = useState(false)
+  const [showQuestions, setShowQuestions] = useState(false)
   const [winner, setWinner] = useState<string | null>(null)
   const [winnerWishes, setWinnerWishes] = useState<{ left: string; right: string } | null>(null)
 
@@ -80,7 +80,7 @@ export default function Home() {
             title="Chén chú chén anh"
             imageSrc={party}
             imageAlt="Topics"
-            onClick={() => navigate('/topics')}
+            onClick={() => setShowQuestions(true)}
             hideBody
           />
         </div>
@@ -95,6 +95,10 @@ export default function Home() {
           }}
           onClose={() => setShowWheel(false)}
         />
+      )}
+
+      {showQuestions && (
+        <QuestionModal onClose={() => setShowQuestions(false)} />
       )}
 
       {winner && winnerWishes && (

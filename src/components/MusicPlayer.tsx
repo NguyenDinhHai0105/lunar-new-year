@@ -10,16 +10,10 @@ const musicModules = import.meta.glob('../assets/tet-music/*.mp3', {
 const musicFiles = Object.values(musicModules) as string[]
 
 export default function MusicPlayer() {
-  const [playlist, setPlaylist] = useState<string[]>([])
+  const [playlist] = useState<string[]>(() => [...musicFiles].sort(() => Math.random() - 0.5))
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-
-  // Shuffle music on mount
-  useEffect(() => {
-    const shuffled = [...musicFiles].sort(() => Math.random() - 0.5)
-    setPlaylist(shuffled)
-  }, [])
 
   // Handle track change
   useEffect(() => {
@@ -50,41 +44,12 @@ export default function MusicPlayer() {
     }
   }, [isPlaying])
 
-  // Global auto-play / interaction unlock
-  useEffect(() => {
-    const unlockAudio = () => {
-        if (playlist.length > 0 && !isPlaying) {
-            setIsPlaying(true)
-        }
-        // Once interacted, remove listeners
-        document.removeEventListener('click', unlockAudio)
-        document.removeEventListener('touchstart', unlockAudio)
-        document.removeEventListener('keydown', unlockAudio)
-    }
-
-    // Try to play immediately (might be blocked)
-    if (playlist.length > 0) {
-        setIsPlaying(true)
-    }
-
-    // Add listeners to unlock if blocked
-    document.addEventListener('click', unlockAudio)
-    document.addEventListener('touchstart', unlockAudio)
-    document.addEventListener('keydown', unlockAudio)
-
-    return () => {
-        document.removeEventListener('click', unlockAudio)
-        document.removeEventListener('touchstart', unlockAudio)
-        document.removeEventListener('keydown', unlockAudio)
-    }
-  }, [playlist.length]) // Run once when playlist is ready
-
   const handleEnded = () => {
     setCurrentTrackIndex((prev) => (prev + 1) % playlist.length)
   }
 
   const togglePlay = () => {
-    setIsPlaying(!isPlaying)
+    setIsPlaying((prev) => !prev)
   }
 
   if (playlist.length === 0) return null
