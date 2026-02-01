@@ -19,7 +19,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
 
   const [selected, setSelected] = useState<{ topicId: string; question: string } | null>(null);
   const [timerState, setTimerState] = useState<'idle' | 'notifying' | 'counting'>('idle');
-  const timerRef = useRef<any>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {

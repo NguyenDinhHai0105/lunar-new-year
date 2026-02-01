@@ -672,9 +672,7 @@
 }
 
 .timer--counting {
-  animation: 
-    timer-move-across 10s linear forwards,
-    timer-active-shake 0.3s infinite !important;
+  animation: timer-move-across 10s linear forwards, timer-active-shake 0.3s infinite;
 }
 
 @keyframes timer-notify-shake {
