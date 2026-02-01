@@ -29,11 +29,15 @@ export default function MusicPlayer() {
     window.addEventListener('click', handleInteraction, { once: true })
     window.addEventListener('touchstart', handleInteraction, { once: true })
     window.addEventListener('keydown', handleInteraction, { once: true })
+    window.addEventListener('mousemove', handleInteraction, { once: true })
+    window.addEventListener('scroll', handleInteraction, { once: true })
 
     return () => {
       window.removeEventListener('click', handleInteraction)
       window.removeEventListener('touchstart', handleInteraction)
       window.removeEventListener('keydown', handleInteraction)
+      window.removeEventListener('mousemove', handleInteraction)
+      window.removeEventListener('scroll', handleInteraction)
     }
   }, [isPlaying])
 
@@ -85,6 +89,7 @@ export default function MusicPlayer() {
         ref={audioRef}
         onEnded={handleEnded}
         preload="auto"
+        autoPlay
       />
       <button 
         type="button"
