@@ -14,6 +14,28 @@ export default function MusicPlayer() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const hasInteractedRef = useRef(false)
+
+  // Handle global interaction to bypass autoplay restrictions
+  useEffect(() => {
+    const handleInteraction = () => {
+      if (!hasInteractedRef.current && isPlaying && audioRef.current) {
+        audioRef.current.play().then(() => {
+          hasInteractedRef.current = true
+        }).catch((e) => console.log('Autoplay bypass failed:', e))
+      }
+    }
+
+    window.addEventListener('click', handleInteraction, { once: true })
+    window.addEventListener('touchstart', handleInteraction, { once: true })
+    window.addEventListener('keydown', handleInteraction, { once: true })
+
+    return () => {
+      window.removeEventListener('click', handleInteraction)
+      window.removeEventListener('touchstart', handleInteraction)
+      window.removeEventListener('keydown', handleInteraction)
+    }
+  }, [isPlaying])
 
   // Handle track change
   useEffect(() => {
@@ -34,9 +56,12 @@ export default function MusicPlayer() {
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.play().catch((e) => {
-            console.log('Play blocked/failed:', e)
-            setIsPlaying(false)
+        audioRef.current.play().then(() => {
+          hasInteractedRef.current = true
+        }).catch((e) => {
+          console.log('Initial play blocked (waiting for interaction):', e)
+          // We don't set isPlaying(false) here anymore, because we want it to 
+          // auto-start on the first user interaction instead of staying off.
         })
       } else {
         audioRef.current.pause()
