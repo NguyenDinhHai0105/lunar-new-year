@@ -69,6 +69,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
               }}
             >
               <img src={childhood} alt="Tuổi Thơ" className="question-modal__img" />
+              <span className="question-modal__tooltip">Tuổi Thơ</span>
             </div>
             <div
               className={`question-modal__item question-modal__item--love${selected?.topicId === 'love' ? ' question-modal__item--active' : ''}`}
@@ -80,6 +81,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
               }}
             >
               <img src={image9} alt="Tình Yêu" className="question-modal__img" />
+              <span className="question-modal__tooltip">Tình Yêu</span>
             </div>
             <div
               className={`question-modal__item question-modal__item--friends${selected?.topicId === 'friends' ? ' question-modal__item--active' : ''}`}
@@ -91,6 +93,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ onClose }) => {
               }}
             >
               <img src={friendship} alt="Bạn Bè" className="question-modal__img" />
+              <span className="question-modal__tooltip">Bạn Bè</span>
             </div>
             <div className="question-modal__main">
               <div className="question-modal__banner">

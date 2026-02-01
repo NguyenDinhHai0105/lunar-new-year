@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
-import cloudRight from '../assets/new-year-horse.svg'
-import party from '../assets/new-year-horse.svg'
-import topEdge from '../assets/new-year-horse.svg'
-import bgMain from '../assets/new-year-horse.svg'
+import lixi1 from '../assets/lixi_1.png'
+import lixi2 from '../assets/lixi_2.png'
+import lixi3 from '../assets/lixi_3.png'
+import lixi4 from '../assets/lixi_4.png'
 import spinSoundUrl from '../assets/spin-sound.mp3'
 
 type Props = {
@@ -12,10 +12,10 @@ type Props = {
 }
 
 const items = [
-  { id: 1, image: cloudRight, color: '#fef3c7' }, // Light yellow
-  { id: 2, image: party, color: '#fee2e2' },      // Light red
-  { id: 3, image: topEdge, color: '#dcfce7' },    // Light green
-  { id: 4, image: bgMain, color: '#e0f2fe' },     // Light blue
+  { id: 1, image: lixi1, color: '#fef3c7' }, // Light yellow
+  { id: 2, image: lixi2, color: '#fee2e2' },      // Light red
+  { id: 3, image: lixi3, color: '#dcfce7' },    // Light green
+  { id: 4, image: lixi4, color: '#e0f2fe' },     // Light blue
 ]
 
 export default function LuckySpinWheel({ onSpinEnd, onClose }: Props) {
